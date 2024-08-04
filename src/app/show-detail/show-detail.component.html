@@ -15,17 +15,17 @@
       </div>
 
       <!-- Logout Button -->
-      <div class="flex items-center space-x-4">
+      <div class="flex flex-col items-center space-y-1">
         <div *ngIf="isLoggedIn" class="text-right">
-          <p class="font-semibold text-gray-900">{{ user.email || "NA" }}</p>
-          <p class="text-gray-600">
+          <p class="font-semibold">{{ user.email || "NA" }}</p>
+          <p class="text-gray-500">
             {{ user.age ? user.age + " years old" : "NA" }}
           </p>
         </div>
         <button
           *ngIf="isLoggedIn"
           (click)="logout()"
-          class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-md shadow-sm hover:bg-gray-700 text-sm"
+          class="ml-auto px-2 py-1 bg-gray-600 text-white font-semibold rounded-md shadow-sm hover:bg-gray-700 text-sm"
         >
           Logout
         </button>
