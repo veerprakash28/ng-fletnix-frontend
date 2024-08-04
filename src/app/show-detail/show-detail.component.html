@@ -1,0 +1,163 @@
+<div class="flex flex-col min-h-screen">
+  <div class="container mx-auto p-6 max-w-4xl flex-grow">
+    <!-- Header Section -->
+    <div
+      class="flex items-center justify-between pb-4 border-b-2 border-dashed border-gray-300 mb-6"
+    >
+      <!-- Title -->
+      <div class="flex flex-col items-center space-y-2">
+        <div
+          class="text-4xl font-bold text-white bg-red-600 w-fit px-4 py-2 rounded-md"
+        >
+          FletNix
+        </div>
+        <div class="text-xl font-bold text-gray-800">What to watch</div>
+      </div>
+
+      <!-- Logout Button -->
+      <div class="flex items-center space-x-4">
+        <div *ngIf="isLoggedIn" class="text-right">
+          <p class="font-semibold text-gray-900">{{ user.email || "NA" }}</p>
+          <p class="text-gray-600">
+            {{ user.age ? user.age + " years old" : "NA" }}
+          </p>
+        </div>
+        <button
+          *ngIf="isLoggedIn"
+          (click)="logout()"
+          class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-md shadow-sm hover:bg-gray-700 text-sm"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Show Details Section -->
+    <div class="pt-4 flex flex-col items-center">
+      <div class="relative w-full max-w-3xl">
+        <h2
+          class="text-4xl font-extrabold mb-6 text-center text-red-600"
+          *ngIf="show"
+        >
+          {{ show.title || "NA" }}
+        </h2>
+      </div>
+
+      <div
+        *ngIf="show"
+        class="flex flex-col items-start w-full max-w-3xl space-y-4 px-6"
+      >
+        <p class="text-lg" *ngIf="show.type">
+          <strong>Type:</strong> {{ show.type }}
+        </p>
+        <div
+          class="flex items-center space-x-4"
+          *ngIf="show.release_year || show.rating || show.duration"
+        >
+          <p class="text-lg" *ngIf="show.release_year">
+            {{ show.release_year }}
+          </p>
+          <p *ngIf="show.release_year">|</p>
+          <div
+            class="px-2 py-1 bg-yellow-200 text-yellow-800 rounded-md"
+            *ngIf="show.rating"
+          >
+            <p class="text-md">{{ show.rating }}</p>
+          </div>
+          <p *ngIf="show.rating">|</p>
+          <p class="text-lg" *ngIf="show.duration">
+            {{ show.duration }}
+          </p>
+        </div>
+        <p class="text-lg" *ngIf="show.director">
+          <strong>Directed By:</strong> {{ show.director }}
+        </p>
+        <p class="text-lg" *ngIf="show.description">
+          <strong>Description:</strong> {{ show.description }}
+        </p>
+        <div class="flex flex-wrap gap-2" *ngIf="show.cast">
+          <p class="text-lg"><strong>Cast:</strong></p>
+          <div
+            *ngFor="let actor of show.cast.split(', ')"
+            class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-sm"
+          >
+            {{ actor }}
+          </div>
+        </div>
+        <p class="text-lg" *ngIf="show.country">
+          <strong>Country:</strong> {{ show.country }}
+        </p>
+        <div
+          class="flex flex-wrap gap-2"
+          *ngIf="show.listed_in && show.listed_in[0]"
+        >
+          <p class="text-lg"><strong>Listed In:</strong></p>
+          <div
+            *ngFor="let category of show.listed_in[0].split(', ')"
+            class="px-2 py-1 bg-red-400 text-white rounded-full text-sm"
+          >
+            {{ category }}
+          </div>
+        </div>
+        <p class="text-lg" *ngIf="show.date_added">
+          <strong>Date Added:</strong>
+          {{ show.date_added | date : "MMMM d, y" }}
+        </p>
+      </div>
+
+      <!-- Go Back Button -->
+      <button
+        (click)="goBack()"
+        class="mt-6 px-4 py-2 bg-red-600 text-white font-semibold rounded-md shadow-sm hover:bg-red-700 text-sm"
+      >
+        Go Back
+      </button>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="!show && errorMessage" class="text-center text-red-500 mt-6">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <!-- Other Shows Section -->
+  <div class="bg-[#131834] w-full" *ngIf="shows.length > 0">
+    <div class="px-4 pt-4 text-lg font-bold text-white">
+      Other Shows you may like
+    </div>
+    <div class="p-4 text-white">
+      <div *ngIf="shows.length > 0">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div
+            *ngFor="let show of shows"
+            class="relative border p-4 rounded-md shadow-sm max-h-[400px] overflow-auto hover:shadow-lg transition-shadow duration-300 ease-in-out"
+            [class.pointer-events-none]="
+              !isLoggedIn || (show.rating === 'R' && user.age < 18)
+            "
+          >
+            <!-- Rating Badge -->
+            <div
+              *ngIf="show.rating === 'R'"
+              class="absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-white rounded bg-yellow-500"
+            >
+              {{ show.rating }}
+            </div>
+
+            <h3 class="text-xl font-semibold">{{ show.title || "NA" }}</h3>
+            <p><strong>Type:</strong> {{ show.type || "NA" }}</p>
+
+            <div class="mt-auto text-right">
+              <a
+                *ngIf="isLoggedIn && (show.rating !== 'R' || user.age >= 18)"
+                [routerLink]="['/show', show._id]"
+                class="text-red-600 hover:text-red-800 font-semibold text-xs"
+              >
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
