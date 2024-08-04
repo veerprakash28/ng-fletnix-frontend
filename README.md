@@ -53,6 +53,14 @@ ng serve
 
 - The application will be running on http://localhost:4200 by default.
 
+### For Testing
+
+- Check the unit test cases and add more :P
+
+```bash
+ng test
+```
+
 ## Features
 
 ### Authentication
@@ -75,6 +83,28 @@ ng serve
 
 - **Display:** Detailed information about each show is shown, including title, type, release year, rating, director, description, cast, country, and categories.
 - **Age-Based Access:** Users under 18 cannot view 'R' rated shows or movies.
+
+## Screenshots
+
+### Fletnix - Login
+
+![Alt text](./public/fletnix-login.png)
+
+### Fletnix - Search and Filter
+
+![Alt text](./public/fletnix-search-and-filter.png)
+
+### Fletnix - Pagination
+
+![Alt text](./public/fletnix-pagination.png)
+
+### Fletnix - Details Page
+
+![Alt text](./public/fletnix-details-page.png)
+
+### Fletnix - Signup
+
+![Alt text](./public/fletnix-signup.png)
 
 ## Contributing
 

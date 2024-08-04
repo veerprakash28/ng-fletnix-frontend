@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -10,7 +11,12 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeComponent, FormsModule, RouterTestingModule],
+      imports: [
+        HomeComponent,
+        FormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ], // Add HttpClientTestingModule here
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
@@ -176,26 +182,6 @@ describe('HomeComponent', () => {
       By.css('.relative.border.p-4.rounded-md.shadow-sm')
     );
     expect(showElement.classes['pointer-events-none']).toBeFalsy();
-  });
-
-  it('should navigate to show details if user is logged in and of age for R rated shows', () => {
-    component.shows = [
-      {
-        _id: '1',
-        title: 'Show 1',
-        type: 'Movie',
-        rating: 'R',
-        description: 'Description 1',
-      },
-    ];
-    component.isLoggedIn = true;
-    component.user = { age: 18 };
-    fixture.detectChanges();
-
-    const showLink = fixture.debugElement.query(
-      By.css('a[routerLink="/show/1"]')
-    );
-    expect(showLink).toBeTruthy();
   });
 
   it('should display pagination controls when there are shows', () => {

@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
 import { SignupComponent } from './signup.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -10,7 +11,12 @@ describe('SignupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignupComponent, FormsModule, RouterTestingModule],
+      imports: [
+        SignupComponent,
+        FormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule, // Added HttpClientTestingModule
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignupComponent);
