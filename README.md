@@ -1,27 +1,87 @@
-# Frontend
+# ng-fletnix-frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+Frontend Repository of Fletnix Webapp made using Angular 12+. This UI handles authentication, user details, and listing of TV shows and movies with pagination, filter, search functionality, and age-based content restrictions.
 
-## Development server
+## Links
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Before you start, here is the live link for the App. If you like the project, do give a star to the repo!
 
-## Code scaffolding
+- [Live Link](https://ng-fletnix.netlify.app/) (Fletnix - What to Watch)
+- [Backend Repo](https://github.com/veerprakash28/ng-fletnix-backend) (Repository of Backend made using Node and MongoDB)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Prerequisites
 
-## Build
+Before you start, ensure you have the following installed:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- [AngularJs](https://angular.dev/) (v12+ or higher recommended)
 
-## Running unit tests
+## Setup Instructions
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 1. Clone the Repository
 
-## Running end-to-end tests
+```bash
+git clone https://github.com/veerprakash28/ng-fletnix-frontend.git
+cd ng-fletnix-frontend
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 2. Install Dependencies
 
-## Further help
+- Run the following command to install the required dependencies:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+- Create a src/environments/environment.ts file and add the following configuration:
+
+```bash
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000' // Update this to your backend API URL if different
+};
+```
+
+### 4. Configure Environment Variables
+
+- Start the development server by running:
+
+```bash
+ng serve
+```
+
+- The application will be running on http://localhost:4200 by default.
+
+## Features
+
+### Authentication
+
+- **Signup:** Users can create a new account with email, password, and age.
+- **Login:** Users can log in with their email and password.
+- **Logout:** Logged-in users can log out, which clears their session.
+
+### User Details
+
+- **Display:** Logged-in users will see their email and age displayed on the UI.
+- **Redirect:** If a user is not logged in, they will be redirected to the login page.
+
+### Search and Filter
+
+- **Search:** Users can search for TV shows and movies by title or cast.
+- **Filter:** Users can filter the list by type (TV Show or Movie).
+
+### Show Details
+
+- **Display:** Detailed information about each show is shown, including title, type, release year, rating, director, description, cast, country, and categories.
+- **Age-Based Access:** Users under 18 cannot view 'R' rated shows or movies.
+
+## Contributing
+
+1. **Fork the repository** and create a new branch for your changes.
+2. **Make your changes** and ensure that they do not break existing functionality.
+3. **Submit a pull request** with a description of the changes and any relevant information.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) - see the `LICENSE` file for details.
