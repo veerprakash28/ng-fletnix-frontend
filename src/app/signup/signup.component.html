@@ -55,7 +55,17 @@
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50"
       />
     </div>
+    <!-- Show "Signing in..." text when `isSignup` is true -->
+    <div
+      *ngIf="isSignup"
+      class="text-center px-4 py-2 bg-gray-600 text-white font-semibold rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+    >
+      Signing in, Please wait...
+    </div>
+
+    <!-- Show "Signup" button when `isSignup` is false -->
     <button
+      *ngIf="!isSignup"
       type="submit"
       class="w-full px-4 py-2 bg-red-600 text-white font-semibold rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
     >

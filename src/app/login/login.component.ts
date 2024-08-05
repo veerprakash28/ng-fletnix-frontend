@@ -16,6 +16,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+  isLogin: boolean = false;
 
   baseUrl = environment.apiBaseUrl || 'http://localhost:3000';
   private apiUrl = `${this.baseUrl}/user/login`;
@@ -32,6 +33,9 @@ export class LoginComponent {
       return; // Exit if validation fails
     }
 
+    // Set `isLogin` to true to show the loading text
+    this.isLogin = true;
+
     // Prepare the request payload
     const bodyData = {
       email: this.email,
@@ -47,6 +51,9 @@ export class LoginComponent {
       .subscribe(
         (resultData) => {
           if (resultData.status) {
+            // Successful login
+            this.isLogin = false;
+
             // Store user data in local storage
             localStorage.setItem('user', JSON.stringify(resultData.user));
             localStorage.setItem('isLoggedIn', 'true');
@@ -54,11 +61,17 @@ export class LoginComponent {
             // Navigate to the home page on successful login
             this.router.navigate(['/home']);
           } else {
+            // Login failed
+            this.isLogin = false;
+
             // Display the error message returned from the server
             this.errorMessage = resultData.message || 'Something went wrong!';
           }
         },
         (error) => {
+          // Error during request
+          this.isLogin = false;
+
           console.error('Error during login:', error);
           // Display the error message from the server or a generic message
           this.errorMessage =

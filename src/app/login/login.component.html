@@ -40,9 +40,20 @@
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50"
       />
     </div>
+    <!-- Show "Logging in..." text when `isLogin` is true -->
+    <div
+      *ngIf="isLogin"
+      class="text-center px-4 py-2 bg-gray-600 text-white font-semibold rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+    >
+      Logging in...
+    </div>
+
+    <!-- Show "Login" button when `isLogin` is false -->
     <button
+      *ngIf="!isLogin"
       type="submit"
       class="w-full px-4 py-2 bg-red-600 text-white font-semibold rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+      (click)="onSubmit()"
     >
       Login
     </button>

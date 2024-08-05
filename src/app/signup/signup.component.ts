@@ -17,6 +17,7 @@ export class SignupComponent {
   password: string = '';
   age: number = 0;
   errorMessage: string = '';
+  isSignup: boolean = false;
 
   baseUrl = environment.apiBaseUrl || 'http://localhost:3000';
   private apiUrl = `${this.baseUrl}/user/signup`;
@@ -29,6 +30,9 @@ export class SignupComponent {
       return;
     }
 
+    // Set `isSignup` to true to show the loading text
+    this.isSignup = true;
+
     const bodyData = {
       email: this.email,
       password: this.password,
@@ -38,15 +42,22 @@ export class SignupComponent {
     this.http.post(this.apiUrl, bodyData).subscribe(
       (resultData: any) => {
         if (resultData.status) {
-          console.log(resultData);
+          // Successful Signup
+          this.isSignup = false;
+
           alert('User Registered Successfully.');
           this.router.navigate(['/']);
           this.errorMessage = '';
         } else {
+          // Signup failed
+          this.isSignup = false;
           this.errorMessage = resultData.message || 'Something went wrong!';
         }
       },
       (error) => {
+        // Error during request
+        this.isSignup = false;
+
         console.error('Error registering user:', error);
         this.errorMessage =
           error.error?.message || 'An unexpected error occurred.';
